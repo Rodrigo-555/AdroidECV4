@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Gradiente de izquierda a derecha para efecto platinado/metálico -->
+    <gradient
+        android:startColor="#B87333"
+        android:centerColor="#D2946B"
+        android:endColor="#E0AA76"
+        android:type="linear"
+        android:angle="180" />
+    <!-- Bordes redondeados para forma de cápsula -->
+    <corners android:radius="50dp" />
+</shape>
