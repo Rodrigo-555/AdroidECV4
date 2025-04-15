@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "498873115445",
+    "project_id": "fir-auth-kotlin-f8f61",
+    "storage_bucket": "fir-auth-kotlin-f8f61.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498873115445:android:708ed6b999077cd355227c",
+        "android_client_info": {
+          "package_name": "com.rodrigotocto.myappfirebaseauth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUl9vyaiUjbwzLbmnS36zZK1UtfLzMjFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
