@@ -6,13 +6,13 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.rodrigotocto.myappfirebaseauth.Models.Orden
+import com.rodrigotocto.myappfirebaseauth.Models.OrdenDetalle
 import com.rodrigotocto.myappfirebaseauth.databinding.ActivityOrdenBinding
 
 
 class OrdenActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOrdenBinding
-    private lateinit var myAdapter: MyAdapterCardOrden
+    private lateinit var myAdapter: MyAdapterCardOrdenDetalle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,16 +34,18 @@ class OrdenActivity : AppCompatActivity() {
     }
 
     private fun getAllData() {
-        val productosCafe = listOf(
-            Orden("Espresso",3.50, 3,10.50, R.drawable.espresso),
-            Orden("Cappuccino",3.50,5, 17.50,  R.drawable.capuccino),
-            Orden("Latte",3.50, 2,7.00,  R.drawable.latte_art),
-            Orden("Americano",3.50,5, 17.50,  R.drawable.cafe_americano),
-            Orden("Moca",3.50,4, 14.00,  R.drawable.moca),
-            Orden("Frappuccino",3.50,3, 10.50,  R.drawable.frapuchino)
-        )
+        val productosCafe = CartManager.cartItems.map { detalle ->
+            OrdenDetalle(
+                detalle.ordenDetalleId, // o trae el nombre real desde otro lugar si lo tienes
+                detalle.cantidad,
+                detalle.subtotal,
+                detalle.productoId,
+                detalle.nombre,
+                detalle.imageView
+            )
+        }
 
-        myAdapter = MyAdapterCardOrden(this, productosCafe)
+        myAdapter = MyAdapterCardOrdenDetalle(this, productosCafe)
         binding.recyclerViewCoffeeItems.adapter = myAdapter
     }
 

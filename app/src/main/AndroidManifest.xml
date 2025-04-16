@@ -23,6 +23,9 @@
             android:value="AIzaSyDP7IJ7AYcokgC-HeGvd6cvJ6sbYU4xK1o" />
 
         <activity
+            android:name=".DetalleProductoActivity"
+            android:exported="false" />
+        <activity
             android:name=".OrdenActivity"
             android:exported="false" />
         <activity

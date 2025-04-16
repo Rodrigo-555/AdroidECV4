@@ -38,6 +38,8 @@ class InicioActivity : AppCompatActivity() {
             true
         }
 
+
+
         // Inicializar el DAO para productos
         productoDao = ProductoDAO(this)
         productoDao.open()
@@ -137,6 +139,7 @@ class InicioActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        // Cerrar la conexión a la base de datos cuando la actividad se destruye
         productoDao.close()
     }
 
