@@ -3,19 +3,36 @@ package com.rodrigotocto.myappfirebaseauth
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.rodrigotocto.myappfirebaseauth.DAO.FavoritosDAO
 import com.rodrigotocto.myappfirebaseauth.Models.Producto
 import com.rodrigotocto.myappfirebaseauth.databinding.CardProductBinding
 
-class MyAdapterCardProduct (var con: Context, var list: List<Producto>): RecyclerView.Adapter<MyAdapterCardProduct.MyViewHolder>() {
+class MyAdapterCardProduct (var con: Context, var list: List<Producto>, private val userId: Long ): RecyclerView.Adapter<MyAdapterCardProduct.MyViewHolder>() {
+
+    private val favoritosDAO = FavoritosDAO(con)
+
+
+    init {
+        // Open the database when the adapter is created
+        favoritosDAO.open()
+    }
+
+    // Called when adapter is no longer in use
+    fun cleanup() {
+        favoritosDAO.close()
+    }
 
     inner class MyViewHolder(val binding: CardProductBinding) : RecyclerView.ViewHolder(binding.root) {
         var nombreProducto: TextView = binding.tvProductName
         var description: TextView = binding.tvDescription
         var price: TextView = binding.tvPrice
         var imagen: ImageView = binding.imgProduct
+        var btnFavorite: ImageButton = binding.btnFavorite
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -29,6 +46,7 @@ class MyAdapterCardProduct (var con: Context, var list: List<Producto>): Recycle
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val context = holder.itemView.context
+        val producto = list[position]
 
         holder.nombreProducto.text = list[position].nombreProducto
         holder.description.text = list[position].descripcion
@@ -36,6 +54,29 @@ class MyAdapterCardProduct (var con: Context, var list: List<Producto>): Recycle
 
         val imageResId = context.resources.getIdentifier(list[position].imageView, "drawable", context.packageName)
         holder.imagen.setImageResource(imageResId)
+
+        val isFavorite = favoritosDAO.isProductFavorite(userId, producto.id)
+        updateFavoriteButtonAppearance(holder.btnFavorite, isFavorite)
+
+        holder.btnFavorite.setOnClickListener {
+            val currentlyFavorite = favoritosDAO.isProductFavorite(userId, producto.id)
+
+            if (currentlyFavorite) {
+                favoritosDAO.removeFavorite(userId, producto.id)
+                updateFavoriteButtonAppearance(holder.btnFavorite, false)
+            } else {
+                favoritosDAO.addFavorite(userId, producto.id)
+                updateFavoriteButtonAppearance(holder.btnFavorite, true)
+            }
+        }
+    }
+
+    private fun updateFavoriteButtonAppearance(button: ImageButton, isFavorite: Boolean) {
+        if (isFavorite) {
+            button.setColorFilter(ContextCompat.getColor(con, R.color.favorite_red))
+        } else {
+            button.setColorFilter(ContextCompat.getColor(con, R.color.favorite_gray))
+        }
     }
 
     // Método para actualizar la lista de productos

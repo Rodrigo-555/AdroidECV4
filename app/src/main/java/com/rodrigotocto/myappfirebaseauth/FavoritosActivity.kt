@@ -7,12 +7,18 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.rodrigotocto.myappfirebaseauth.DAO.FavoritosDAO
+import com.rodrigotocto.myappfirebaseauth.DAO.UsuarioDAO
 import com.rodrigotocto.myappfirebaseauth.Models.Producto
 import com.rodrigotocto.myappfirebaseauth.databinding.ActivityFavoritosBinding
 
 class FavoritosActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavoritosBinding
     private lateinit var myAdapter: MyAdapterCardFavourites
+    private lateinit var favoritosDAO: FavoritosDAO
+    private lateinit var usuarioDAO: UsuarioDAO
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +32,11 @@ class FavoritosActivity : AppCompatActivity() {
             OpenOrdenes()
         })
 
+        usuarioDAO = UsuarioDAO(this)
+        usuarioDAO.open()
+
+        favoritosDAO = FavoritosDAO(this)
+        favoritosDAO.open()
 
         binding.productFavoritesRecyclerView.layoutManager = LinearLayoutManager(this)
         getAllData()
@@ -42,7 +53,12 @@ class FavoritosActivity : AppCompatActivity() {
             true
         }
 
-
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        // Cerrar la base de datos al destruir la actividad
+        favoritosDAO.close()
+        usuarioDAO.close()
     }
     private fun OpenOrdenes(){
         val intent = Intent(this, OrdenActivity::class.java)
@@ -55,17 +71,25 @@ class FavoritosActivity : AppCompatActivity() {
     }
 
     private fun getAllData() {
-////        val productosCafe = listOf(
-////            Producto("Espresso", "Café fuerte y concentrado servido en una taza pequeña", 8.0, R.drawable.espresso),
-////            Producto("Cappuccino", "Espresso con leche vaporizada y espuma de leche", 10.0, R.drawable.capuccino),
-////            Producto("Latte", "Espresso con abundante leche vaporizada y un toque de espuma", 10.5, R.drawable.latte_art),
-////            Producto("Americano", "Espresso diluido con agua caliente, más suave que el espresso solo", 7.5, R.drawable.cafe_americano),
-////            Producto("Moca", "Latte con chocolate y crema batida", 11.0, R.drawable.moca),
-////            Producto("Frappuccino", "Bebida fría a base de café, hielo, leche y sabores dulces", 12.0, R.drawable.frapuchino)
-////        )
-//
-//        myAdapter = MyAdapterCardFavourites(this, productosCafe)
-//        binding.productFavoritesRecyclerView.adapter = myAdapter
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        currentUser?.let { user ->
+            val email = user.email.toString()
+            val usuariologeado = usuarioDAO.getUserByEmail(email)
+
+            // Ahora usamos usuariologeado dentro del mismo bloque
+            usuariologeado?.let { usuario ->
+                val userId = usuario.id
+                val productosfav = favoritosDAO.getUserFavoriteProducts(usuario.id)
+                myAdapter = MyAdapterCardFavourites(this, productosfav, userId)
+                binding.productFavoritesRecyclerView.adapter = myAdapter
+            } ?: run {
+                // Manejar el caso en que no se encuentra el usuario
+                // Por ejemplo, mostrar un mensaje o redirigir a otra actividad
+
+            }
+
+        }
     }
+
 
 }

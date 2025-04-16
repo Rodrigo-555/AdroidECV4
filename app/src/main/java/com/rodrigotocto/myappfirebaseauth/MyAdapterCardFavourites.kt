@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rodrigotocto.myappfirebaseauth.Models.Producto
 import com.rodrigotocto.myappfirebaseauth.databinding.CardProductFavoriteBinding
 
-class MyAdapterCardFavourites(var con: Context, var list: List<Producto>): RecyclerView.Adapter<MyAdapterCardFavourites.MyViewHolder>() {
+class MyAdapterCardFavourites(var con: Context, var list: List<Producto>,private val userId: Long): RecyclerView.Adapter<MyAdapterCardFavourites.MyViewHolder>() {
 
     inner class MyViewHolder(val binding: CardProductFavoriteBinding): RecyclerView.ViewHolder(binding.root){
         var nombreProducto: TextView = binding.tvProductName

@@ -8,7 +8,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     companion object {
         private const val DATABASE_NAME = "coffee_shop.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
 
         // Definición de la tabla Producto
         const val TABLE_PRODUCTOS = "productos"
@@ -28,7 +28,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         const val TABLE_FAVORITES = "favoritos"
         const val COLUMN_FAVORITE_ID = "favorite_id"
         const val COLUMN_PRODUCT_ID = "product_id"
-
 
     }
 

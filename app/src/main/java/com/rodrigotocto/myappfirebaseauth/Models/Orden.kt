@@ -1,4 +1,4 @@
-package com.rodrigotocto.myappfirebaseauth
+package com.rodrigotocto.myappfirebaseauth.Models
 
 
 data class Orden (
