@@ -17,4 +17,6 @@ class LoadActivity : AppCompatActivity() {
             insets
         }
     }
+
+
 }
