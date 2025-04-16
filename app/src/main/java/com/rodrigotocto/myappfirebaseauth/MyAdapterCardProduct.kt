@@ -76,6 +76,8 @@ class MyAdapterCardProduct (var con: Context, var list: List<Producto>, private 
                 updateFavoriteButtonAppearance(holder.btnFavorite, true)
             }
         }
+        holder.bind(producto.id.toString())
+
     }
 
     private fun updateFavoriteButtonAppearance(button: ImageButton, isFavorite: Boolean) {
