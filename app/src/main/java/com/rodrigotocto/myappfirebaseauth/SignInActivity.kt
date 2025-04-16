@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
 
 class SignInActivity : AppCompatActivity() {
@@ -37,11 +38,12 @@ class SignInActivity : AppCompatActivity() {
 
     private fun configureGoogleSignIn() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("YOUR_GOOGLE_CLIENT_ID") // Reemplazar con el web client ID real
+            .requestIdToken(getString(R.string.web_client_id))
             .requestEmail()
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+        Log.d(TAG, "Google Sign-In configurado con WebClientId")
     }
 
     private fun setListeners() {
@@ -80,26 +82,48 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun signInWithGoogle() {
+        Log.d(TAG, "Iniciando proceso de inicio de sesión con Google")
         val signInIntent = googleSignInClient.signInIntent
         googleSignInLauncher.launch(signInIntent)
     }
 
     private val googleSignInLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            Log.d(TAG, "Google Sign-In result received: ${result.resultCode}")
+
+            val data = result.data
+            if (data == null) {
+                Log.e(TAG, "Sign-in intent returned null data")
+                Toast.makeText(this, "Error: Intent data is null", Toast.LENGTH_SHORT).show()
+                return@registerForActivityResult
+            }
+
             if (result.resultCode == RESULT_OK) {
-                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
                 try {
                     val account = task.getResult(ApiException::class.java)
-                    Log.d(TAG, "Cuenta de Google obtenida: ${account?.email}")
+                    Log.d(TAG, "Google account retrieved: ${account.email}")
                     firebaseAuthWithGoogle(account)
                 } catch (e: ApiException) {
-                    Log.w(TAG, "Google sign in failed", e)
-                    Toast.makeText(this, "Error al iniciar con Google: ${e.message}", Toast.LENGTH_SHORT).show()
+                    // Log detailed error information
+                    Log.e(TAG, "Google sign-in failed with code: ${e.statusCode}", e)
+                    Toast.makeText(this, "Error de Google Sign-In: ${getErrorMessage(e.statusCode)}", Toast.LENGTH_LONG).show()
                 }
             } else {
-                Log.w(TAG, "Resultado de Google sign in no OK: ${result.resultCode}")
+                Log.w(TAG, "Google sign-in failed: result code = ${result.resultCode}")
+                Toast.makeText(this, "Inicio de sesión cancelado o error", Toast.LENGTH_SHORT).show()
             }
         }
+
+    private fun getErrorMessage(statusCode: Int): String {
+        return when (statusCode) {
+            GoogleSignInStatusCodes.SIGN_IN_CANCELLED -> "Cancelado por el usuario"
+            GoogleSignInStatusCodes.SIGN_IN_CURRENTLY_IN_PROGRESS -> "Ya hay un inicio de sesión en progreso"
+            GoogleSignInStatusCodes.SIGN_IN_FAILED -> "Falló por razón desconocida"
+            GoogleSignInStatusCodes.NETWORK_ERROR -> "Error de red"
+            else -> "Error código: $statusCode"
+        }
+    }
 
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
         account?.let {
@@ -130,14 +154,4 @@ class SignInActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
-    // Puedes comentar onStart() para pruebas si deseas forzar que se vea la pantalla de login cada vez.
-    /*
-    override fun onStart() {
-        super.onStart()
-        if (auth.currentUser != null) {
-            navigateToInicio()
-        }
-    }
-    */
 }
