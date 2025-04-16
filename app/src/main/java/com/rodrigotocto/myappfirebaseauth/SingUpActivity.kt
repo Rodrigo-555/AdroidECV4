@@ -50,8 +50,8 @@ class SingUpActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
-                    val intent = Intent(this, SignInActivity::class.java)
-                    startActivity(intent)
+                    val intent2 = Intent(this, SignInActivity::class.java)
+                    startActivity(intent2)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
@@ -68,6 +68,5 @@ class SingUpActivity : AppCompatActivity() {
         val intent = Intent(this, SignInActivity::class.java)
         startActivity(intent)
     }
-
 
 }
