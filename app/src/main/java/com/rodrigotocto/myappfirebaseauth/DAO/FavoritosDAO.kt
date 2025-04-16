@@ -5,7 +5,6 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.rodrigotocto.myappfirebaseauth.Database.DatabaseHelper
-import com.rodrigotocto.myappfirebaseauth.Models.Favoritos
 import com.rodrigotocto.myappfirebaseauth.Models.Producto
 
 class FavoritosDAO (context: Context) {
@@ -22,8 +21,8 @@ class FavoritosDAO (context: Context) {
     }
 
     // Añadir un producto a favoritos
-    fun addFavorite(userId: String, productId: Long): Long {
-        val values = android.content.ContentValues().apply {
+    fun addFavorite(userId: Long, productId: Long): Long {
+        val values =ContentValues().apply {
             put(DatabaseHelper.COLUMN_USER_ID, userId)
             put(DatabaseHelper.COLUMN_PRODUCT_ID, productId.toString())
         }
@@ -31,15 +30,15 @@ class FavoritosDAO (context: Context) {
     }
 
     // Eliminar un producto de favoritos
-    fun removeFavorite(userId: String, productId: Long): Int {
+    fun removeFavorite(userId: Long, productId: Long): Int {
         return db?.delete(
             DatabaseHelper.TABLE_FAVORITES,
             "${DatabaseHelper.COLUMN_USER_ID} = ? AND ${DatabaseHelper.COLUMN_PRODUCT_ID} = ?",
-            arrayOf(userId, productId.toString())
+            arrayOf(userId.toString(), productId.toString())
         ) ?: 0
     }
 
-    fun getUserFavoriteProducts(userId: String): List<Producto> {
+    fun getUserFavoriteProducts(userId: Long): List<Producto> {
         val productos = mutableListOf<Producto>()
 
         // Consulta SQL para obtener los productos favoritos de un usuario
@@ -51,7 +50,7 @@ class FavoritosDAO (context: Context) {
             ORDER BY p.${DatabaseHelper.COLUMN_NOMBRE} ASC
         """
 
-        val cursor = db?.rawQuery(query, arrayOf(userId))
+        val cursor = db?.rawQuery(query, arrayOf(userId.toString()))
 
         cursor?.use {
             while (it.moveToNext()) {
@@ -79,5 +78,18 @@ class FavoritosDAO (context: Context) {
             imageView = cursor.getString(imagenIndex),
             tipo = cursor.getString(tipoIndex)
         )
+    }
+
+    fun isProductFavorite(userId: Long, productId: Long): Boolean {
+        val query = """
+        SELECT 1 FROM ${DatabaseHelper.TABLE_FAVORITES}
+        WHERE ${DatabaseHelper.COLUMN_USER_ID} = ? AND ${DatabaseHelper.COLUMN_PRODUCT_ID} = ?
+        LIMIT 1
+    """
+        val cursor = db?.rawQuery(query, arrayOf(userId.toString(), productId.toString()))
+        cursor?.use {
+            return it.moveToFirst() // Devuelve true si hay al menos un resultado
+        }
+        return false
     }
 }

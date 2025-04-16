@@ -7,7 +7,9 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.rodrigotocto.myappfirebaseauth.DAO.ProductoDAO
+import com.rodrigotocto.myappfirebaseauth.DAO.UsuarioDAO
 import com.rodrigotocto.myappfirebaseauth.Models.Producto
 import com.rodrigotocto.myappfirebaseauth.databinding.ActivityInicioBinding
 
@@ -15,6 +17,7 @@ class InicioActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInicioBinding
     private lateinit var myAdapter: MyAdapterCardProduct
     private lateinit var productoDao: ProductoDAO
+    private lateinit var usuarioDAO: UsuarioDAO
     private var allProducts: List<Producto> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +38,13 @@ class InicioActivity : AppCompatActivity() {
             true
         }
 
-
-
         // Inicializar el DAO para productos
         productoDao = ProductoDAO(this)
         productoDao.open()
+
+        usuarioDAO = UsuarioDAO(this)
+        usuarioDAO.open()
+
 
         binding.productRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -73,12 +78,28 @@ class InicioActivity : AppCompatActivity() {
     }
 
     private fun getAllData() {
-        // Cargar todos los productos de la BD
-        allProducts = productoDao.getAllProducts()
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        currentUser?.let { user ->
+            val email = user.email.toString()
+            val usuariologeado = usuarioDAO.getUserByEmail(email)
 
-        // Inicializar el adaptador con todos los productos
-        myAdapter = MyAdapterCardProduct(this, allProducts)
-        binding.productRecyclerView.adapter = myAdapter
+            usuariologeado?.let { usuario ->
+                val userId = usuario.id // Obtén el ID del usuario logueado
+
+                // Cargar todos los productos de la BD
+                allProducts = productoDao.getAllProducts()
+
+                // Inicializar el adaptador con todos los productos y el userId
+                myAdapter = MyAdapterCardProduct(this, allProducts, userId)
+                binding.productRecyclerView.adapter = myAdapter
+            } ?: run {
+                // Manejar el caso en que no se encuentra el usuario
+                // Por ejemplo, mostrar un mensaje o redirigir a otra actividad
+            }
+        } ?: run {
+            // Manejar el caso en que no hay un usuario logueado
+            // Por ejemplo, redirigir a la pantalla de inicio de sesión
+        }
     }
 
     private fun setupFilterButtons() {
@@ -116,7 +137,6 @@ class InicioActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // Cerrar la conexión a la base de datos cuando la actividad se destruye
         productoDao.close()
     }
 

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.rodrigotocto.myappfirebaseauth.Models.Orden
 import com.rodrigotocto.myappfirebaseauth.databinding.CardOrdenBinding
 
 class MyAdapterCardOrden(var con: Context, var list: List<Orden>): RecyclerView.Adapter<MyAdapterCardOrden.MyViewHolder>() {
