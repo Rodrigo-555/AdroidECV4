@@ -1,24 +1,24 @@
-package com.andrehuamani.proyectofinal
+package com.rodrigotocto.myappfirebaseauth
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.rodrigotocto.myappfirebaseauth.databinding.CardProductBinding
+import com.andrehuamani.proyectofinal.Producto
+import com.rodrigotocto.myappfirebaseauth.databinding.CardProductFavoriteBinding
 
-class MyAdapter (var con: Context, var list: List<Producto>): RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class MyAdapterCardFavourites(var con: Context, var list: List<Producto>): RecyclerView.Adapter<MyAdapterCardFavourites.MyViewHolder>() {
 
-    inner class MyViewHolder(val binding: CardProductBinding): RecyclerView.ViewHolder(binding.root){
+    inner class MyViewHolder(val binding: CardProductFavoriteBinding): RecyclerView.ViewHolder(binding.root){
         var nombreProducto: TextView = binding.tvProductName
         var description: TextView = binding.tvDescription
-        var price: TextView = binding.tvPrice
         var imagen: ImageView = binding.imgProduct
+
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = CardProductBinding.inflate(LayoutInflater.from(con), parent, false)
+        val binding = CardProductFavoriteBinding.inflate(LayoutInflater.from(con), parent, false)
         return MyViewHolder(binding)
     }
 
@@ -29,9 +29,7 @@ class MyAdapter (var con: Context, var list: List<Producto>): RecyclerView.Adapt
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.nombreProducto.text = list[position].nombreProducto
         holder.description.text = list[position].descripcion
-        holder.price.text = list[position].precio.toString()
         holder.imagen.setImageResource(list[position].imageView)
-
 
     }
 

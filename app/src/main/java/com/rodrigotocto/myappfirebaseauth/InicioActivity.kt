@@ -3,16 +3,14 @@ package com.rodrigotocto.myappfirebaseauth
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.andrehuamani.proyectofinal.MyAdapter
+import com.andrehuamani.proyectofinal.MyAdapterCardProduct
 import com.andrehuamani.proyectofinal.Producto
 import com.rodrigotocto.myappfirebaseauth.databinding.ActivityInicioBinding
 
 class InicioActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInicioBinding
-    private lateinit var myAdapter: MyAdapter
+    private lateinit var myAdapter: MyAdapterCardProduct
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +31,7 @@ class InicioActivity : AppCompatActivity() {
             Producto("Frappuccino", "Bebida fría a base de café, hielo, leche y sabores dulces", 12.0, R.drawable.frapuchino)
         )
 
-        myAdapter = MyAdapter(this, productosCafe)
+        myAdapter = MyAdapterCardProduct(this, productosCafe)
         binding.productRecyclerView.adapter = myAdapter
     }
 
