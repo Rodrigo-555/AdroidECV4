@@ -12,7 +12,20 @@
           "package_name": "com.rodrigotocto.myappfirebaseauth"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "498873115445-2qpm3b85k99bdm6o2ldde1fp8ga7mh5f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rodrigotocto.myappfirebaseauth",
+            "certificate_hash": "17b92a677a86716652fdc27b42e9b4ada0e88fa4"
+          }
+        },
+        {
+          "client_id": "498873115445-rsc4jj2npfai661tspd0cteb0lnuhd8u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCUl9vyaiUjbwzLbmnS36zZK1UtfLzMjFA"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498873115445-rsc4jj2npfai661tspd0cteb0lnuhd8u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

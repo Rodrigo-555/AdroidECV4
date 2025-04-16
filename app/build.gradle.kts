@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
 
 
+
 }
 
 android {
@@ -55,6 +56,12 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(platform(libs.firebase.bom))
+    implementation(libs.google.firebase.auth)
+    implementation(libs.play.services.auth)
+
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
 
 
 }
