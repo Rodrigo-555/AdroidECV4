@@ -41,7 +41,7 @@ class SignInActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, InicioActivity::class.java)
                     startActivity(intent)
 
                 } else {
@@ -55,16 +55,6 @@ class SignInActivity : AppCompatActivity() {
     private  fun moveToSignUp(){
         val intent = Intent(this, SingUpActivity::class.java)
         startActivity(intent)
-    }
-
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
     }
 
 }

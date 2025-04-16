@@ -3,16 +3,16 @@ package com.rodrigotocto.myappfirebaseauth
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.andrehuamani.proyectofinal.MyAdapter
-import com.andrehuamani.proyectofinal.Producto
+import com.rodrigotocto.myappfirebaseauth.DAO.ProductoDAO
+import com.rodrigotocto.myappfirebaseauth.Models.Producto
 import com.rodrigotocto.myappfirebaseauth.databinding.ActivityInicioBinding
 
 class InicioActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInicioBinding
     private lateinit var myAdapter: MyAdapter
+    private lateinit var productoDao: ProductoDAO
+    private var allProducts: List<Producto> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,21 +20,66 @@ class InicioActivity : AppCompatActivity() {
         binding = ActivityInicioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.productRecyclerView.layoutManager = LinearLayoutManager(this)
-        getAllData()
-    }
-    private fun getAllData() {
-        val productosCafe = listOf(
-            Producto("Espresso", "Café fuerte y concentrado servido en una taza pequeña", 8.0, R.drawable.espresso),
-            Producto("Cappuccino", "Espresso con leche vaporizada y espuma de leche", 10.0, R.drawable.capuccino),
-            Producto("Latte", "Espresso con abundante leche vaporizada y un toque de espuma", 10.5, R.drawable.latte_art),
-            Producto("Americano", "Espresso diluido con agua caliente, más suave que el espresso solo", 7.5, R.drawable.cafe_americano),
-            Producto("Moca", "Latte con chocolate y crema batida", 11.0, R.drawable.moca),
-            Producto("Frappuccino", "Bebida fría a base de café, hielo, leche y sabores dulces", 12.0, R.drawable.frapuchino)
-        )
+        // Inicializar el DAO para productos
+        productoDao = ProductoDAO(this)
+        productoDao.open()
 
-        myAdapter = MyAdapter(this, productosCafe)
+        binding.productRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        // Cargar todos los productos
+        getAllData()
+
+        // Configurar los botones de filtro
+        setupFilterButtons()
+
+    }
+
+    private fun getAllData() {
+        // Cargar todos los productos de la BD
+        allProducts = productoDao.getAllProducts()
+
+        // Inicializar el adaptador con todos los productos
+        myAdapter = MyAdapter(this, allProducts)
         binding.productRecyclerView.adapter = myAdapter
+    }
+
+    private fun setupFilterButtons() {
+        // Botón para mostrar todos los productos
+        binding.chipAll.setOnClickListener {
+            filterProductsByType(null)
+        }
+
+        // Botón para mostrar café
+        binding.chipCafes.setOnClickListener {
+            filterProductsByType("Cafe")
+        }
+
+        // Botón para mostrar bebidas frías
+        binding.chipSandwiches.setOnClickListener {
+            filterProductsByType("Sandwich")
+        }
+
+        // Botón para mostrar postres
+        binding.chipPostres.setOnClickListener {
+            filterProductsByType("Postre")
+        }
+    }
+
+    private fun filterProductsByType(tipo: String?) {
+        if (tipo == null) {
+            // Si el tipo es null, mostrar todos los productos
+            myAdapter.updateList(allProducts)
+        } else {
+            // Filtrar productos por tipo directamente desde la base de datos
+            val filteredProducts = productoDao.getProductsByType(tipo)
+            myAdapter.updateList(filteredProducts)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Cerrar la conexión a la base de datos cuando la actividad se destruye
+        productoDao.close()
     }
 
 }

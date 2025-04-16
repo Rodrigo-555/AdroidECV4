@@ -108,6 +108,16 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chipAll"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TODOS"
+                android:textColor="#FFFFFF"
+                app:chipBackgroundColor="@color/chip_background_normal" />
+
+
+            <com.google.android.material.chip.Chip
                 android:id="@+id/chipCafes"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
