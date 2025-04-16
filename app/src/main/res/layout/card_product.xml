@@ -11,6 +11,12 @@
     app:cardBackgroundColor="#9C8C74"
     app:cardCornerRadius="16dp"
     app:cardElevation="2dp">
+    <TextView
+        android:id="@+id/productoId"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text=""
+        android:visibility="invisible" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

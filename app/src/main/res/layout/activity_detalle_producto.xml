@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- Toolbar con botón de retroceso -->
+
+    <!-- Imagen principal del café -->
+
+    <!-- Título y calificación -->
+    <ImageView
+        android:id="@+id/coffeeImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="Imagen de Café Mocha"
+        android:scaleType="centerCrop"
+        android:src="@drawable/moca"
+        app:layout_constraintHeight_percent="0.3"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="1dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="53dp"
+        android:layout_height="43dp"
+        android:contentDescription="Regresar"
+        android:src="@drawable/ic_orden_return"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.206" />
+
+    <TextView
+        android:id="@+id/coffeeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginBottom="36dp"
+        android:text="Cafe Mocha"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/coffeeImage"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/ratingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4.9"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/coffeeTitle"
+        tools:ignore="MissingConstraints" />
+
+
+    <!-- Card de contenido principal -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="-20dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coffeeImage">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Sección de tamaño -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Tamaño de Cafe"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/sizeSmall"
+                        android:layout_width="0dp"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#9E7B5A"
+                        android:text="Pequeño"
+                        android:textColor="@android:color/white" />
+
+                    <Button
+                        android:id="@+id/sizeMedium"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="4dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#FFFFFF"
+                        android:text="Mediano"
+                        android:textColor="#333333" />
+
+                    <Button
+                        android:id="@+id/sizeLarge"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#FFFFFF"
+                        android:text="Largo"
+                        android:textColor="#333333" />
+                </LinearLayout>
+
+                <!-- Sección "Acerca de" -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Acerca de"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id ipsum vivamus velit lorem amet. Tincidunt cras volutpat aliquam porttitor molestie. Nulla habitasse id vulputate proin cras. Neque, vel duis sit vel pellentesque tempor. A commodo arcu tortor arcu, elit."
+                    android:textColor="#666666"
+                    android:textSize="14sp" />
+
+                <!-- Sección personalizar (Agregar) -->
+                <TextView
+                    android:id="@+id/tvAgregar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Agregar (S/1)"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Items personalizables -->
+                <!-- Item: Caramelo -->
+                <LinearLayout
+                    android:id="@+id/lnCaramelo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Caramelo"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/caramelMinus"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:contentDescription="Quitar caramelo"
+                        android:src="@drawable/ic_minus" />
+
+                    <TextView
+                        android:id="@+id/caramelCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="12dp"
+                        android:text="0"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/caramelAdd"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:contentDescription="Añadir caramelo"
+                        android:src="@drawable/ic_plus" />
+                </LinearLayout>
+
+                <!-- Item: Plátano -->
+                <LinearLayout
+                    android:id="@+id/lnPlatano"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Plátano"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/bananaMinus"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:contentDescription="Quitar plátano"
+                        android:src="@drawable/ic_minus" />
+
+                    <TextView
+                        android:id="@+id/bananaCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="12dp"
+                        android:text="0"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/bananaAdd"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:contentDescription="Añadir plátano"
+                        android:src="@drawable/ic_plus" />
+                </LinearLayout>
+
+                <!-- Item: Chocolate -->
+                <LinearLayout
+                    android:id="@+id/lnChocolate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Chocolate"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/chocolateMinus"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:contentDescription="Quitar chocolate"
+                        android:src="@drawable/ic_minus" />
+
+                    <TextView
+                        android:id="@+id/chocolateCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="12dp"
+                        android:text="0"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/chocolateAdd"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:contentDescription="Añadir chocolate"
+                        android:src="@drawable/ic_plus" />
+                </LinearLayout>
+
+                <!-- Item: Fresas -->
+                <LinearLayout
+                    android:id="@+id/lnFresas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Fresas"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/strawberryMinus"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:contentDescription="Quitar fresas"
+                        android:src="@drawable/ic_minus" />
+
+                    <TextView
+                        android:id="@+id/strawberryCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="12dp"
+                        android:text="0"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/strawberryAdd"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:contentDescription="Añadir fresas"
+                        android:src="@drawable/ic_plus" />
+                </LinearLayout>
+
+                <!-- Botón de agregar al carrito -->
+                <Button
+                    android:id="@+id/addToCartButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/price_orden_background"
+                    android:backgroundTint="#000000"
+                    android:text="Agregar al carrito | S/3.50"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

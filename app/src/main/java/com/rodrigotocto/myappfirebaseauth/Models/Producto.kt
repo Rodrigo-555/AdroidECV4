@@ -1,6 +1,8 @@
 package com.rodrigotocto.myappfirebaseauth.Models
 
-data class Producto (
+import java.io.Serializable
+
+data class Producto(
 
     val id: Long = 0,
     val nombreProducto: String,

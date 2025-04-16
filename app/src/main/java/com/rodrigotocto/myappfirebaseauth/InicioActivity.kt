@@ -34,8 +34,7 @@ class InicioActivity : AppCompatActivity() {
             }
             true
         }
-
-
+        binding.productRecyclerView.isSelected
 
         // Inicializar el DAO para productos
         productoDao = ProductoDAO(this)
