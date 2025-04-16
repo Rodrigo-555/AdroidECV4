@@ -34,7 +34,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_maps)
 
         // Mapa
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.mapfragment) as SupportMapFragment
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.maps) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         // Inicializar vistas

@@ -38,8 +38,6 @@ class InicioActivity : AppCompatActivity() {
             true
         }
 
-
-
         // Inicializar el DAO para productos
         productoDao = ProductoDAO(this)
         productoDao.open()
@@ -47,14 +45,16 @@ class InicioActivity : AppCompatActivity() {
         usuarioDAO = UsuarioDAO(this)
         usuarioDAO.open()
 
+        binding.editLocation.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
+        })
 
         binding.productRecyclerView.layoutManager = LinearLayoutManager(this)
 
         // Cargar todos los productos
         getAllData()
 
-        // Configurar los botones de filtro
-        setupFilterButtons()
 
         binding.carritoCompras.setOnClickListener(View.OnClickListener {
             OpenOrdenes()
@@ -94,6 +94,7 @@ class InicioActivity : AppCompatActivity() {
                 // Inicializar el adaptador con todos los productos y el userId
                 myAdapter = MyAdapterCardProduct(this, allProducts, userId)
                 binding.productRecyclerView.adapter = myAdapter
+                setupFilterButtons()
             } ?: run {
                 // Manejar el caso en que no se encuentra el usuario
                 // Por ejemplo, mostrar un mensaje o redirigir a otra actividad
