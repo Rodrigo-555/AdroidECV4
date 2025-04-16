@@ -54,6 +54,11 @@ class InicioActivity : AppCompatActivity() {
 
         })
 
+        binding.editLocation.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
+        })
+
     }
 
     private fun openActivity(activityClass: Class<out Activity>) {
