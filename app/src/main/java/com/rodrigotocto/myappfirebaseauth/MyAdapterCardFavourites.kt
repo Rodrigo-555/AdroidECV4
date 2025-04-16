@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.andrehuamani.proyectofinal.Producto
+import com.rodrigotocto.myappfirebaseauth.Models.Producto
 import com.rodrigotocto.myappfirebaseauth.databinding.CardProductFavoriteBinding
 
 class MyAdapterCardFavourites(var con: Context, var list: List<Producto>): RecyclerView.Adapter<MyAdapterCardFavourites.MyViewHolder>() {
@@ -29,7 +29,9 @@ class MyAdapterCardFavourites(var con: Context, var list: List<Producto>): Recyc
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.nombreProducto.text = list[position].nombreProducto
         holder.description.text = list[position].descripcion
-        holder.imagen.setImageResource(list[position].imageView)
+
+        val imageResId = con.resources.getIdentifier(list[position].imageView, "drawable", con.packageName)
+        holder.imagen.setImageResource(imageResId)
 
     }
 

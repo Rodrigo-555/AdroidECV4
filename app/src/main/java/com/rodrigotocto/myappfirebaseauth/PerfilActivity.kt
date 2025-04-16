@@ -5,11 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.andrehuamani.proyectofinal.MyAdapterCardProduct
-import com.rodrigotocto.myappfirebaseauth.databinding.ActivityInicioBinding
 import com.rodrigotocto.myappfirebaseauth.databinding.ActivityPerfilBinding
 
 class PerfilActivity : AppCompatActivity() {
