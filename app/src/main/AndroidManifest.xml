@@ -33,13 +33,13 @@
             android:name=".PerfilActivity"
             android:exported="false" />
         <activity
-            android:name=".LoadActivity"
-            android:exported="false" />
-        <activity
             android:name=".SingUpActivity"
             android:exported="true" />
         <activity
             android:name=".SignInActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".LoadActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
