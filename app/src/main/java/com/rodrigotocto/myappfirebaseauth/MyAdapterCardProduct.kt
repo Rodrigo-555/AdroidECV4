@@ -15,14 +15,9 @@ import com.rodrigotocto.myappfirebaseauth.databinding.CardProductBinding
 class MyAdapterCardProduct (var con: Context, var list: List<Producto>, private val userId: Long ): RecyclerView.Adapter<MyAdapterCardProduct.MyViewHolder>() {
 
     private val favoritosDAO = FavoritosDAO(con)
-
-
     init {
-        // Open the database when the adapter is created
         favoritosDAO.open()
     }
-
-    // Called when adapter is no longer in use
     fun cleanup() {
         favoritosDAO.close()
     }
@@ -78,8 +73,7 @@ class MyAdapterCardProduct (var con: Context, var list: List<Producto>, private 
             button.setColorFilter(ContextCompat.getColor(con, R.color.favorite_gray))
         }
     }
-
-    // Método para actualizar la lista de productos
+    // Metodo para actualizar la lista de productos
     fun updateList(newList: List<Producto>) {
         list = newList
         notifyDataSetChanged()

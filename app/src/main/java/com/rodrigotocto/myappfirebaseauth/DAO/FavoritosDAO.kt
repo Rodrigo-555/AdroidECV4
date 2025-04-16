@@ -22,7 +22,7 @@ class FavoritosDAO (context: Context) {
 
     // Añadir un producto a favoritos
     fun addFavorite(userId: Long, productId: Long): Long {
-        val values = android.content.ContentValues().apply {
+        val values =ContentValues().apply {
             put(DatabaseHelper.COLUMN_USER_ID, userId)
             put(DatabaseHelper.COLUMN_PRODUCT_ID, productId.toString())
         }

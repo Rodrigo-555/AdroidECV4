@@ -10,7 +10,7 @@
     <color name="text_secondary">#9E9E9E</color>
     <color name="transparent">#009E9E9E</color>
     <color name="favorite_red">#FF0000</color>
-    <color name="favorite_gray">#888888</color>
+    <color name="favorite_gray">#000000</color>
     <!-- Selector para chips de categoría -->
     <color name="chip_background_selected">#722F37</color>
     <color name="chip_background_normal">#D9C7AC</color>

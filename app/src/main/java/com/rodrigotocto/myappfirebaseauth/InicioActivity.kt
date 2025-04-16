@@ -132,7 +132,6 @@ class InicioActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // Cerrar la conexión a la base de datos cuando la actividad se destruye
         productoDao.close()
     }
 
