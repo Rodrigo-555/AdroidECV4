@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="20dp"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,8 +49,10 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/carrito_compras"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:clickable="true"
             android:src="@drawable/ic_cart"
             app:tint="#722F37" />
     </LinearLayout>
@@ -108,9 +111,9 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F2E0C9"
-        app:itemIconTint="@color/bottom_nav_normal"
-        app:itemTextColor="@color/bottom_nav_normal"
+        android:background="@drawable/navigation_background"
+        app:itemIconTint="@color/bottom_nav_item_color"
+        app:itemTextColor="@color/bottom_nav_item_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
