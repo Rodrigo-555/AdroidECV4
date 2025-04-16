@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Color cuando está seleccionado - más oscuro -->
+    <!-- Color normal - más claro -->
+    <item android:color="#61341C" />
+</selector>

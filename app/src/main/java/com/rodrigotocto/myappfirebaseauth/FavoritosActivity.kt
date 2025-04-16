@@ -1,6 +1,9 @@
 package com.rodrigotocto.myappfirebaseauth
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,10 +20,36 @@ class FavoritosActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityFavoritosBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.bottomNavigation.selectedItemId = R.id.navigation_favorites
+        binding.carritoCompras.setOnClickListener(View.OnClickListener {
+            OpenOrdenes()
 
+        })
         binding.productFavoritesRecyclerView.layoutManager = LinearLayoutManager(this)
         getAllData()
 
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.navigation_home -> openActivity(InicioActivity::class.java)
+                R.id.navigation_favorites -> openActivity(FavoritosActivity::class.java)
+                R.id.navigation_profile -> openActivity(PerfilActivity::class.java)
+                else ->{
+
+                }
+            }
+            true
+        }
+
+
+    }
+    private fun OpenOrdenes(){
+        val intent = Intent(this, OrdenActivity::class.java)
+        startActivity(intent)
+
+    }
+    private fun openActivity(activityClass: Class<out Activity>) {
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
     }
 
     private fun getAllData() {

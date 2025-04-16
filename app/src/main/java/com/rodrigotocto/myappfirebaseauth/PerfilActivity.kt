@@ -1,20 +1,46 @@
 package com.rodrigotocto.myappfirebaseauth
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.andrehuamani.proyectofinal.MyAdapterCardProduct
+import com.rodrigotocto.myappfirebaseauth.databinding.ActivityInicioBinding
+import com.rodrigotocto.myappfirebaseauth.databinding.ActivityPerfilBinding
 
 class PerfilActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityPerfilBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_perfil)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityPerfilBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.bottomNavigation.selectedItemId = R.id.navigation_profile
+
+
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.navigation_home -> openActivity(InicioActivity::class.java)
+                R.id.navigation_favorites -> openActivity(FavoritosActivity::class.java)
+                R.id.navigation_profile -> openActivity(PerfilActivity::class.java)
+                else ->{
+
+                }
+            }
+            true
         }
+
+
     }
+    private fun openActivity(activityClass: Class<out Activity>) {
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
+    }
+
 }
