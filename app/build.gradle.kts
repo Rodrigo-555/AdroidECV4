@@ -65,5 +65,8 @@ dependencies {
     implementation(libs.googleid)
     implementation(libs.play.services.maps)
 
+    implementation(libs.play.services.maps.v1820)
+    implementation (libs.play.services.location)
+
 
 }

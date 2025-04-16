@@ -15,189 +15,184 @@
         android:layout_height="match_parent"
         tools:context=".MapsActivity" />
 
-    <!-- Search Bar at the top -->
+    <!-- Search Bar -->
     <androidx.cardview.widget.CardView
         android:id="@+id/searchBarCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_goneMarginTop="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_margin="16dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:background="@drawable/edit_text_background"
-            android:padding="8dp">
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:background="@drawable/edit_text_background">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginStart="8dp"
-                android:src="@android:drawable/ic_menu_search"
-                android:background="@drawable/edit_text_background"/>
+                android:src="@android:drawable/ic_menu_search" />
 
             <TextView
+                android:id="@+id/searchTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/edit_text_background"
-                android:padding="8dp"
                 android:text="Buscar dirección"
                 android:textColor="#9E9E9E"
                 android:textSize="16sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Bottom Sheet for Address Form -->
+    <!-- Bottom Sheet -->
     <androidx.cardview.widget.CardView
         android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="wrap_content">
 
-            <!-- Direction Label -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dirección"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <!-- Direction Input Field -->
             <LinearLayout
-                android:id="@+id/directionInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/edit_text_background"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
+                <!-- Dirección -->
                 <TextView
-                    android:id="@+id/direccionTextView"
-                    android:layout_width="0dp"
+                    android:text="Dirección"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/directionInputLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Mall del sur - 123 - San Juan Miraflores..."
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    android:background="@drawable/edit_text_background">
+
+                    <TextView
+                        android:id="@+id/direccionTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Mall del sur - 123 - San Juan Miraflores..."
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/locationButton"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_mylocation" />
+                </LinearLayout>
+
+                <!-- Referencias -->
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:text="Referencias"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/referenciasEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="Frente al puente o estación Atocongo..."
+                    android:padding="8dp"
                     android:textSize="14sp" />
 
-                <ImageView
-                    android:id="@+id/locationButton"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@android:drawable/ic_menu_mylocation" />
-            </LinearLayout>
-
-            <!-- References Label -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Referencias"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <!-- References Input Field -->
-            <EditText
-                android:id="@+id/referenciasEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/edit_text_background"
-                android:hint="Frente al puente o estación atocongo..."
-                android:padding="8dp"
-                android:textSize="14sp" />
-
-            <!-- Housing Type and Floor Row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="horizontal">
-
-                <!-- Housing Type Column -->
+                <!-- Tipo Vivienda y Piso -->
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
 
-                    <TextView
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:text="Tipo Vivienda"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <EditText
+                            android:id="@+id/tipoViviendaEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/edit_text_background"
+                            android:text="Apartamento"
+                            android:padding="8dp"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tipo Vivienda"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:orientation="vertical"
+                        android:layout_marginStart="8dp">
 
-                    <EditText
-                        android:id="@+id/tipoViviendaEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/edit_text_background"
-                        android:padding="8dp"
-                        android:text="Apartamento"
-                        android:textSize="14sp" />
+                        <TextView
+                            android:text="Piso/Lote"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <EditText
+                            android:id="@+id/pisoEditText"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/edit_text_background"
+                            android:text="3"
+                            android:gravity="center"
+                            android:textSize="14sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
-                <!-- Floor Number Column -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <!-- Botón Añadir Dirección -->
+                <Button
+                    android:id="@+id/addAddressButton"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Piso/Lot"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/pisoEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/edit_text_background"
-                        android:padding="8dp"
-                        android:text="3"
-                        android:textAlignment="center"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/button_background"
+                    android:padding="12dp"
+                    android:text="Añadir Dirección"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
-
-            <!-- Add Address Button -->
-            <Button
-                android:id="@+id/addAddressButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/button_background"
-                android:padding="12dp"
-                android:text="Añadir Dirección"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF" />
-
-        </LinearLayout>
+        </ScrollView>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
